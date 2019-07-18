@@ -1,0 +1,11 @@
+export const AUTH_USER = 'auth_user';
+export const AUTH_USER_SUCCESS = 'auth_user_success';
+export const AUTH_USER_ERROR = 'auth_user_error';
+export const UNAUTH_USER = 'unauth_user';
+export const REGISTER_USER = 'register_user';
+export const REGISTER_USER_SUCCESS = 'register_user_success';
+export const REGISTER_USER_ERROR = 'register_user_error';
+export const SET_FILTERED_VEHICLES = 'set_filetered_vehicles';
+export const SET_LOADING = 'set_loading';
+export const SET_ERROR = 'set_error';
+export const SET_VEHICLE = 'set_vehicle';
