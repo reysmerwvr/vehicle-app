@@ -175,7 +175,7 @@ class Dashboard extends Component {
                 noWrap
                 className={classes.title}
               >
-                Pokedex App
+                Vehicle App
               </Typography>
           </Toolbar>
           </AppBar>
@@ -194,7 +194,9 @@ class Dashboard extends Component {
             <List>{menuItems(this.props)}</List>
           </Drawer>
           <main className={classes.content}>
-            <ContentComponent />
+            <ContentComponent 
+              match={this.props.match}
+            />
           </main>
         </div>
       </Main>

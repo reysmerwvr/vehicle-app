@@ -5,10 +5,13 @@ import { handleError,
 } from '../helpers/general';
 import {
     SET_LOADING,
+    UNSET_LOADING,
     SET_ERROR,
+    SET_VEHICLE,
     SET_FILTERED_VEHICLES,
-    SET_VEHICLE
+    SET_VEHICLES
 } from './types';
+import history from '../helpers/history';
 
 const envVars = {
     REACT_APP_API_URL: process.env.REACT_APP_API_URL,
@@ -28,8 +31,9 @@ export const getVehicles = () => {
                 Authorization: localStorage.getItem('token')
             }
         }).then((response) => {
-            const vehiclesResponse = response.data;
-            dispatch(retrieveActionCreator(GET_VEHICLES_SUCCESS, vehiclesResponse));
+            dispatch({ type: UNSET_LOADING });
+            const vehiclesResponse = response.data.data;
+            dispatch(retrieveActionCreator(SET_VEHICLES, vehiclesResponse));
         }).catch((error) => {
             handleError(error);
             if (error !== undefined) {
@@ -54,7 +58,8 @@ export const getVehicle = (id) => {
                 Authorization: localStorage.getItem('token')
             }
         }).then((response) => {
-            const vehicleResponse = response.data;
+            dispatch({ type: UNSET_LOADING });
+            const vehicleResponse = response.data.data;
             dispatch(retrieveActionCreator(SET_VEHICLE, vehicleResponse));
         }).catch((error) => {
             handleError(error);
@@ -81,9 +86,18 @@ export const storeVehicle = (data) => {
             },
             data
         }).then((response) => {
-            
+            dispatch({ type: UNSET_LOADING });
+            const vehicleResponse = response.data.data;
+            dispatch(retrieveActionCreator(SET_VEHICLE, vehicleResponse));
         }).catch((error) => {
-            
+            handleError(error);
+            if (error !== undefined) {
+                const errorResponse = error.response.data;
+                if (errorResponse) {
+                    errorMessage = errorResponse.message
+                }
+            }
+            dispatch(retrieveActionCreator(SET_ERROR, errorMessage));
         });
     };
 }
@@ -100,9 +114,18 @@ export const updateVehicle = (id, data) => {
             },
             data
         }).then((response) => {
-            
+            dispatch({ type: UNSET_LOADING });
+            const vehicleResponse = response.data.data;
+            dispatch(retrieveActionCreator(SET_VEHICLE, vehicleResponse));
         }).catch((error) => {
-            
+            handleError(error);
+            if (error !== undefined) {
+                const errorResponse = error.response.data;
+                if (errorResponse) {
+                    errorMessage = errorResponse.message
+                }
+            }
+            dispatch(retrieveActionCreator(SET_ERROR, errorMessage));
         });
     };
 }
@@ -117,10 +140,18 @@ export const deleteVehicle = (id) => {
                 'Content-Type': envVars.REACT_APP_CONTENT_TYPE_HEADER,
                 Authorization: localStorage.getItem('token')
             }
-        }).then((response) => {
-            
+        }).then(() => {
+            dispatch({ type: UNSET_LOADING });
+            history.push('/vehicles');
         }).catch((error) => {
-            
+            handleError(error);
+            if (error !== undefined) {
+                const errorResponse = error.response.data;
+                if (errorResponse) {
+                    errorMessage = errorResponse.message
+                }
+            }
+            dispatch(retrieveActionCreator(SET_ERROR, errorMessage));
         });
     };
 }

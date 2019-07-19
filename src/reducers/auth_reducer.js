@@ -6,6 +6,7 @@ import {
     REGISTER_USER,
     REGISTER_USER_ERROR,
     REGISTER_USER_SUCCESS,
+    UNSET_ERROR,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -30,6 +31,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
             return { ...state, loading: false, error: action.payload };
         case REGISTER_USER_SUCCESS:
             return { ...state, ...INITIAL_STATE, user: action.payload };
+        case UNSET_ERROR:
+            return { ...state, loading: false, error: null };
         default:
             return state;
     }

@@ -58,7 +58,7 @@ class App extends Component {
               exact 
               path="/vehicles/:id" 
               component={Dashboard}
-              isAuthenticated={isAuthenticated} 
+              isAuthenticated={isAuthenticated}
             />
           </Switch>
         </Router>

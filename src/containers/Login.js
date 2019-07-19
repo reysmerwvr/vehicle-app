@@ -20,7 +20,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import Main from '../hoc/Main';
-import { signIn } from '../actions';
+import { signIn, clearError } from '../actions';
 
 const styles = theme => ({
     main: {
@@ -109,7 +109,7 @@ class Login extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { error } = prevProps;
+        const { error, clearError } = prevProps;
         const errorMessage = this.props.error;
         if(error !== errorMessage) {
           toast.error(errorMessage, {
@@ -118,7 +118,10 @@ class Login extends Component {
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
-                draggable: true
+                draggable: true,
+                onClose: () => {
+                    clearError();
+                }
             });
         }
     }
@@ -246,6 +249,6 @@ const mapStateToProps = ({ auth }) => {
     return { error, loading };
 };
 
-const mapDispatchToProps = { signIn };
+const mapDispatchToProps = { signIn, clearError };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Login));

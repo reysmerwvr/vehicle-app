@@ -15,6 +15,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import { withStyles } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import Main from '../hoc/Main';
 import history from '../helpers/history';
@@ -64,6 +67,7 @@ class Vehicles extends Component {
         this.handleSearch = this.handleSearch.bind(this);
         this.renderVehicles = this.renderVehicles.bind(this);
         this.selectVehicle = this.selectVehicle.bind(this);
+        this.createNewVehicle = this.createNewVehicle.bind(this);
     
         this.state = {
             search: '',
@@ -72,10 +76,8 @@ class Vehicles extends Component {
     }
 
     componentDidMount() {
-        const { vehiclesList, getVehicles } = this.props;
-        if(_.size(vehiclesList) <= 0) {
-            getVehicles();
-        }
+        const { getVehicles } = this.props;
+        getVehicles();
     }
 
     handleChange = event => {
@@ -106,7 +108,7 @@ class Vehicles extends Component {
                             license.toLowerCase().indexOf(word) >= 0 ||
                             model.toLowerCase().indexOf(word) >= 0 ||
                             color.toLowerCase().indexOf(word) >= 0 ||
-                            motorPark.toLowerCase().indexOf(word) >= 0
+                            motorPark.toString(10).toLowerCase().indexOf(word) >= 0
                         )
                     );
                     return matchesArray.length > 0;
@@ -119,7 +121,7 @@ class Vehicles extends Component {
 
     selectVehicle(vehicle) {
         this.props.selectVehicle(vehicle);
-        history.push(`/vehicles/${vehicle.id}`);
+        history.push(`/vehicles/${vehicle._id}`);
     }
 
     renderVehicles(vehiclesList) {
@@ -185,6 +187,11 @@ class Vehicles extends Component {
         );
     }
 
+    createNewVehicle() {
+        this.props.selectVehicle({});
+        history.push('/vehicles/new')
+    }
+
     render() {
         const { classes, vehiclesList, vehiclesFilteredList } = this.props;
         return (
@@ -224,21 +231,29 @@ class Vehicles extends Component {
                         }
                     </Grid>
                 </div>
+                <Tooltip title="Create New Vehicle" aria-label="Add">
+                    <Fab 
+                        color="secondary" className={classes.absolute}
+                        onClick={() => this.createNewVehicle()}
+                    >
+                    <AddIcon />
+                    </Fab>
+                </Tooltip>
             </Main>
         );
     }
 }
 
-const mapStateToProps = ({ Vehicles }) => {
-    const { error, loading, paginator, vehiclesList, vehiclesFilteredList } = Vehicles;
+const mapStateToProps = ({ vehicle }) => {
+    const { error, loading, vehiclesList, vehiclesFilteredList } = vehicle;
 
-    return { error, loading, paginator, vehiclesList, vehiclesFilteredList };
+    return { error, loading, vehiclesList, vehiclesFilteredList };
 };
 
-export default connect(mapStateToProps, 
-    { 
-        getVehicles,
-        setFilteredVehicles,
-        selectVehicle
-    }
-)(withStyles(styles)(Vehicles));
+const mapDispatchToProps = { 
+    getVehicles,
+    setFilteredVehicles,
+    selectVehicle
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Vehicles));

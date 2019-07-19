@@ -15,6 +15,7 @@ import {
     REGISTER_USER,
     REGISTER_USER_SUCCESS,
     REGISTER_USER_ERROR,
+    UNSET_ERROR,
 } from './types';
 
 let errorMessage = defaultErrorMessage;
@@ -93,6 +94,12 @@ export const signOut = () => {
         dispatch({ type: UNAUTH_USER });
         localStorage.removeItem('token');
         history.push('/login');
+    };
+};
+
+export const clearError = () => {
+    return function (dispatch) {
+        dispatch({ type: UNSET_ERROR });
     };
 };
 
