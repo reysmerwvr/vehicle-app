@@ -75,6 +75,7 @@ export const getVehicle = (id) => {
 };
 
 export const storeVehicle = (data) => {
+    data.photo = 'https://via.placeholder.com/300x200';
     return function (dispatch) {
         dispatch({ type: SET_LOADING });
         axios({
@@ -89,6 +90,7 @@ export const storeVehicle = (data) => {
             dispatch({ type: UNSET_LOADING });
             const vehicleResponse = response.data.data;
             dispatch(retrieveActionCreator(SET_VEHICLE, vehicleResponse));
+            history.push('/vehicles');
         }).catch((error) => {
             handleError(error);
             if (error !== undefined) {

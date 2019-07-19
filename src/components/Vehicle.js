@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import validator from 'validator';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -231,7 +230,7 @@ class Vehicle extends Component {
                                 color="secondary"
                                 onClick={() => {
                                     // eslint-disable-next-line no-restricted-globals
-                                    if (confirm('Confirm required to delete this sticker')) {
+                                    if (confirm('Confirm required to delete this vehicle')) {
                                         deleteVehicle(id);
                                     }
                                 }}

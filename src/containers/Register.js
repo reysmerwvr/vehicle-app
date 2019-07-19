@@ -165,10 +165,10 @@ class Register extends Component {
             if(fields[key].email && !validator.isEmail(this.state[key])) {
                 errorMessages.push(`The ${fields[key].message} is not an email`);
             }
-            if(fields[key].password && !validator.matches(this.state[key], 
-                "^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})")) {
-                errorMessages.push(`The ${fields[key].message} is very weak`);
-            }
+            // if(fields[key].password && !validator.matches(this.state[key], 
+            //     "^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})")) {
+            //     errorMessages.push(`The ${fields[key].message} is very weak`);
+            // }
         }
         if(password !== confirmPassword) {
             errorMessages.push(`The passwords fields are different`);

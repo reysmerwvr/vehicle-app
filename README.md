@@ -25,7 +25,7 @@ Vehicle-App uses a number of open source projects to work properly:
 Install the dependencies and start the server.
 
 ```sh
-cd Vehicle-app
+cd vehicle-app
 npm install
 cp .env.example .env
 ```
@@ -39,6 +39,10 @@ Run the following command to start the HTTP Server.
 ```js
 npm start
 ```
+
+## Login
+
+Please find some credentials here [users.json](https://github.com/reysmerwvr/vehicle-app/blob/master/src/data/users.json).
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does 
 its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
